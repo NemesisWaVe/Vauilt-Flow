@@ -55,26 +55,29 @@ Building an autonomous agent that handles financial state presents massive heada
 
 ```mermaid
 graph TD
-  subgraph Frontend
-    UI[React App via Vercel]
-  end
-  subgraph AWS Serverless Backend
-    API[API Gateway]
-    SQS[Amazon SQS Queue]
-    Worker[Lambda Worker]
-    DB[(DynamoDB)]
-    Storage[(Amazon S3)]
-  end
-  subgraph Amazon Bedrock
-    Nova[Amazon Nova Lite]
-  end
+    User((User / Judge)) -->|React + Tailwind| Frontend[Vite Frontend]
+    Frontend -->|Auth Token| Clerk[Clerk Auth]
+    Frontend -->|REST API| APIGW[API Gateway]
+    
+    subgraph "Ingestion Tier"
+        APIGW -->|Action: upload_request| Gatekeeper[Lambda: Gatekeeper]
+        Gatekeeper -->|Gen Presigned URL| S3_Data[(S3: Data Bucket)]
+        Gatekeeper -->|Enqueue Task| SQS[AWS SQS Queue]
+    end
 
-  UI -->|1. Ingest Financial Ledger| API
-  API -->|2. Queues Analysis Task| SQS
-  SQS -->|3. Triggers M&A Logic| Worker
-  Worker <-->|4. Critic Agent Code Loop| Nova
-  Worker -->|5. Saves Portfolio State| DB
-  Worker -->|6. Provisions SPV Domains| Storage
+    subgraph "Execution Tier (The Brain)"
+        SQS -->|Trigger| Worker[Lambda: AI Worker]
+        Worker -->|Step 1: Ingest| S3_Data
+        Worker -->|Step 2: Profile| Pandas[Pandas Engine]
+        Worker -->|Step 3: Query| SQLite[(In-Memory SQLite)]
+        Worker -->|Step 4: Analyze| Bedrock_Nova[Amazon Nova Lite v1:0]
+        Worker -->|Step 5: Voice| Bedrock_Sonic[Amazon Nova Sonic v1:0]
+        Worker -->|Step 6: Flush| DDB[(DynamoDB: Tasks)]
+        Worker -->|Step 7: Artifact| S3_Artifacts[(S3: Audio Briefs)]
+    end
+
+    Frontend -->|Polling| APIGW
+    APIGW -->|Action: get_task| DDB
 
 ```
 
