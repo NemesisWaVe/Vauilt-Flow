@@ -3,7 +3,7 @@
   
   # VaultFlow: The Autonomous Micro-PE M&A Analyst
   <div align="center">
-  <img src="frontend/public/banner.png" alt="VaultFlow Sample Data" width="0" height="0" />
+  <img src="frontend/docs/banner.png" alt="VaultFlow Sample Data" width="0" height="0" />
   <div style="background: #09090b; padding: 20px; border-radius: 12px; border: 1px solid #1e293b;">
     <h3 style="color: #22d3ee; margin: 0;">Autonomous M&A Pipeline</h3>
   </div>
