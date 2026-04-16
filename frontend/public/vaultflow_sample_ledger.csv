@@ -1,0 +1,10 @@
+asset_id,niche,monthly_revenue,cac,ltv,churn_rate,gross_margin,founder_status
+STR-8882,B2B Legal Templates,42000,120,45000,0.04,0.85,Fatigued
+STR-4122,Yoga Mats E-com,15000,45,420,0.12,0.40,Active
+STR-9910,B2B Legal Templates,38000,110,41000,0.03,0.82,Active
+STR-2213,Ergonomic Keyboards,28000,65,1200,0.08,0.55,Fatigued
+STR-3114,SaaS CRM Micro,12000,200,4000,0.15,0.90,Active
+STR-5561,Yoga Mats E-com,18000,48,450,0.11,0.42,Fatigued
+STR-7722,B2B Legal Templates,45000,100,48000,0.02,0.88,Active
+STR-1102,Ergonomic Keyboards,31000,70,1350,0.07,0.58,Active
+STR-4433,SaaS CRM Micro,11000,210,3800,0.18,0.88,Fatigued
